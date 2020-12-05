@@ -27,7 +27,7 @@ LoadingCache<String, String> cache = CacheBuilder.newBuilder().maximumSize(2)
 
 数据结构的示意图:
 
-![guava-cache](images/guava-cache.jpg)
+![guava-cache](./images/guava-cache.jpg)
 
 ## 数据结构
 
@@ -35,7 +35,7 @@ LoadingCache<String, String> cache = CacheBuilder.newBuilder().maximumSize(2)
 
 Segment代表了其中的一段。其类图(部分):
 
-![Segment类图](images/Segment.jpg)
+![Segment类图](./images/Segment.jpg)
 
 此类继承ReentrantLock的目的在于方便的进行加锁操作。
 
@@ -63,7 +63,7 @@ LocalCache(
 
 ReferenceEntry是guava-cache中实际进行存储的数据结构，其类图:
 
-![ReferenceEntry类图](images/ReferenceEntry.jpg)
+![ReferenceEntry类图](./images/ReferenceEntry.jpg)
 
 那么在初始状态下，每个Segment中有多少个ReferenceEntry呢?
 
@@ -223,7 +223,7 @@ keyEquivalence是策略模式的体现，针对不同的引用方式(LocalCache.
 
 Equivalence接口类图:
 
-![Equivalence类图](images/Equivalence.jpg)
+![Equivalence类图](./images/Equivalence.jpg)
 
 keyEquivalence属性由CacheBuilder的getKeyEquivalence方法获得:
 
@@ -601,11 +601,11 @@ ReferenceEntry<K, V> removeEntryFromChain(ReferenceEntry<K, V> first, ReferenceE
 
 假设链表最初的结构如下所示:
 
-![初始](images/entry_before_remove.png)
+![初始](./images/entry_before_remove.png)
 
 处理之后的结构:
 
-![之后](images/entry_after_remove.png)
+![之后](./images/entry_after_remove.png)
 
 结合源码看出，**节点移除实际上导致了一条新的链表的创建**，那么为什么不采用直接将2和4连接的方式呢?
 

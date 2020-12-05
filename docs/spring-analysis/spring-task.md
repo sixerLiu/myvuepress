@@ -84,7 +84,7 @@ protected void doParse(Element element, BeanDefinitionBuilder builder) {
 
 其解析的源码较长，在此不再贴出，解析之后形成的BeanDefinition结构如下图:
 
-![scheduled-tasks结构图](images/scheduled-tasks.png)
+![scheduled-tasks结构图](./images/scheduled-tasks.png)
 
 
 
@@ -92,7 +92,7 @@ taskScheduler属性即指向task:scheduler标签，如果没有配置，此属�
 
 Spring将每一个task:scheduled标签解析为一个Task(的子类)，其类图如下:
 
-![Task类图](images/Task.jpg)
+![Task类图](./images/Task.jpg)
 
 很明显可以看出，任务的类型是由cron, fixed-delay, fixed-rate, trigger四个属性决定的，fixed-delay和fixed-rate为IntervalTask。
 
@@ -104,7 +104,7 @@ Spring将每一个task:scheduled标签解析为一个Task(的子类)，其类图
 
 入口便是ContextLifecycleScheduledTaskRegistrar，类图:
 
-![ContextLifecycleScheduledTaskRegistrar类图](images/ContextLifecycleScheduledTaskRegistrar.jpg)
+![ContextLifecycleScheduledTaskRegistrar类图](./images/ContextLifecycleScheduledTaskRegistrar.jpg)
 
 ContextLifecycleScheduledTaskRegistrar只实现了afterSingletonsInstantiated方法:
 
@@ -155,7 +155,7 @@ Spring定义了TaskScheduler接口，独立于jdk之外，这样做的目的在�
 
 TaskScheduler类图:
 
-![TaskScheduler类图](images/TaskScheduler.jpg)
+![TaskScheduler类图](./images/TaskScheduler.jpg)
 
 ConcurrentTaskExecutor来自另一个继承体系: TaskExecutor，这和spring-task的另一个重要功能，异步执行，这里暂且不表。
 
@@ -177,7 +177,7 @@ public ScheduledTask scheduleCronTask(CronTask task) {
 
 可见，Cron也是通过Trigger实现的，在Spring中，Trigger被定义为**决定一个任务的下一次执行时间**。其类图:
 
-![Trigger.jpg](images/Trigger.jpg)
+![Trigger.jpg](./images/Trigger.jpg)
 
 那么问题来了，字符串形式的cron表达式是在何时被解析为Trigger的呢?
 
@@ -229,7 +229,7 @@ public ScheduledFuture<?> schedule(Runnable task, Trigger trigger) {
 
 从上面的源码可以看出，调度是通过ReschedulingRunnable来完成的，其类图:
 
-![ReschedulingRunnable类图](images/ReschedulingRunnable.jpg)
+![ReschedulingRunnable类图](./images/ReschedulingRunnable.jpg)
 
 schedule方法:
 

@@ -141,7 +141,7 @@ public static Set<BeanDefinitionHolder> registerAnnotationConfigProcessors(
 
 其继承体系如下:
 
-![Comparator继承体系](images/Comparator.jpg)
+![Comparator继承体系](./images/Comparator.jpg)
 
 其作用是比较标注了@Order或是javax.annotation.Priority @Priority注解的元素的优先级。这两种注解的一个常用功能就是设置配置加载的优先级。例子可以参考:
 
@@ -151,19 +151,19 @@ public static Set<BeanDefinitionHolder> registerAnnotationConfigProcessors(
 
 此类用以决定一个bean是否可以当作一个依赖的候选者。其类图:
 
-![ContextAnnotationAutowireCandidateResolver类图](images/ContextAnnotationAutowireCandidateResolver.jpg)
+![ContextAnnotationAutowireCandidateResolver类图](./images/ContextAnnotationAutowireCandidateResolver.jpg)
 
 ### ConfigurationClassPostProcessor
 
 此类用于处理标注了@Configuration注解的类。类图:
 
-![ConfigurationClassPostProcessor类图](images/ConfigurationClassPostProcessor.jpg)
+![ConfigurationClassPostProcessor类图](./images/ConfigurationClassPostProcessor.jpg)
 
 ### AutowiredAnnotationBeanPostProcessor
 
 此类便用于对标注了@Autowire等注解的bean或是方法进行注入。
 
-![AutowiredAnnotationBeanPostProcessor类图](images/AutowiredAnnotationBeanPostProcessor.jpg)
+![AutowiredAnnotationBeanPostProcessor类图](./images/AutowiredAnnotationBeanPostProcessor.jpg)
 
 ### RequiredAnnotationBeanPostProcessor
 
@@ -180,7 +180,7 @@ private static final boolean jsr250Present =
 
 此注解就在rt.jar下，所以默认情况下都是开启JSR-250支持的，所以我们就可以使用喜闻乐见的@Resource注解了。其类图:
 
-![CommonAnnotationBeanPostProcessor类图](images/CommonAnnotationBeanPostProcessor.jpg)
+![CommonAnnotationBeanPostProcessor类图](./images/CommonAnnotationBeanPostProcessor.jpg)
 
 ### PersistenceAnnotationBeanPostProcessor
 
@@ -201,23 +201,23 @@ rt.jar下面并没有JPA的包，所以此Processor默认是没有被注册的�
 
 提供对于注解@EventListener的支持，此注解在Spring4.2被添加，用于监听ApplicationEvent事件。其继承体系:
 
-![EventListenerMethodProcessor类图](images/EventListenerMethodProcessor.jpg)
+![EventListenerMethodProcessor类图](./images/EventListenerMethodProcessor.jpg)
 
 ### DefaultEventListenerFactory
 
 此类应该是和上面的配合使用，用以产生EventListener对象，也是从Spring4.2加入，类图:
 
-![DefaultEventListenerFactory类图](images/DefaultEventListenerFactory.jpg)
+![DefaultEventListenerFactory类图](./images/DefaultEventListenerFactory.jpg)
 
 ## 逻辑关系整理
 
 普通的bean元素(XML)其实都有一个BeanDefinition对象与之对应，但是对于context开头的这种的特殊的元素，它所对应的一般不再是普通意义上的BeanDefinition，而是配合起来一起完成某种功能的组件(比如各种BeanPostProcessor)。这种组件Spring抽象成为ComponentDefinition接口，组件的集合表示成为CompositeComponentDefinition，类图:
 
-![CompositeComponentDefinition类图](images/CompositeComponentDefinition.jpg)
+![CompositeComponentDefinition类图](./images/CompositeComponentDefinition.jpg)
 
 最终形成的数据结构如下图:
 
-![数据结构](images/context_annotation_stack.png)
+![数据结构](./images/context_annotation_stack.png)
 
 不过这个数据结构貌似也没什么用，因为调用的是XmlBeanDefinitionReader中的eventListener的componentRegistered方法，然而这里的eventListener是EmptyReaderEventListener，也就是空实现。
 
@@ -257,7 +257,7 @@ public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
 
 是ConfigurationClassPostProcessor的私有内部类。其类图:
 
-![ImportAwareBeanPostProcessor类图](images/ImportAwareBeanPostProcessor.jpg)
+![ImportAwareBeanPostProcessor类图](./images/ImportAwareBeanPostProcessor.jpg)
 
 此类用于处理实现了ImportAware接口的类。ImportAware接口是做什么的要从使用java源文件作为Spring配置说起:
 
@@ -342,7 +342,7 @@ if (registry instanceof SingletonBeanRegistry) {
 
 默认是一个AnnotationBeanNameGenerator对象，其类图:
 
-![BeanNameGenerator类图](images/BeanNameGenerator.jpg)
+![BeanNameGenerator类图](./images/BeanNameGenerator.jpg)
 
 那我们可以通过向Spring容器添加一个自定义BeanNameGenerator对象的方式自定义beanName生成策略吗，答案是不可以，这也是为什么此bean的ID前面以internal开头。从代码上来看，不可以的原因在于BeanFactoryPostProcessor的触发时机: **配置解析、BeanDefinition加载之后，Singleton初始化之前**，所以即使配置了此接口的实现，但是此时此bean尚未初始化，所以根本看不到此实例。
 
@@ -826,7 +826,7 @@ public class SimpleBean {
 
 注意先关闭@Autowire的检测，否则用不到@Required注解便会报错。运行之后的结果:
 
-![@Required测试](images/@required_test.png)
+![@Required测试](./images/@required_test.png)
 
 ### CommonAnnotationBeanPostProcessor
 
@@ -1066,7 +1066,7 @@ component-scan注解会默认扫描喜闻乐见的@Component、@Repository、@Se
 
 指定使用的ScopeMetadataResolver。此接口用于解析bean的scope定义，其类图:
 
-![ScopeMetadataResolver类图](images/ScopeMetadataResolver.jpg)
+![ScopeMetadataResolver类图](./images/ScopeMetadataResolver.jpg)
 
 默认是AnnotationScopeMetadataResolver，也就是解析@Scope标签。
 
@@ -1140,7 +1140,7 @@ protected Set<BeanDefinitionHolder> doScan(String... basePackages) {
 
 扫描其实就是在classpath下直接读取class文件。读取到的class文件被Spring用Resource接口表示。之后交由MetadataReader进行解析，其类图:
 
-![MetadataReader类图](images/MetadataReader.jpg)
+![MetadataReader类图](./images/MetadataReader.jpg)
 
 对class文件的读取、分析是通过ASM完成的，入口在SimpleMetadataReader的构造器:
 
@@ -1162,7 +1162,7 @@ SimpleMetadataReader(Resource resource, ClassLoader classLoader) throws IOExcept
 
 解析的关键便在于AnnotationMetadataReadingVisitor，其类图:
 
-![AnnotationMetadataReadingVisitor类图](images/AnnotationMetadataReadingVisitor.jpg)
+![AnnotationMetadataReadingVisitor类图](./images/AnnotationMetadataReadingVisitor.jpg)
 
 核心在于其visitAnnotation方法:
 
@@ -1178,7 +1178,7 @@ public AnnotationVisitor visitAnnotation(final String desc, boolean visible) {
 
 返回一个AnnotationVisitor表示对此注解的属性感兴趣，用于解析其属性。最终得到的BeanDefinition集合是ScannedGenericBeanDefinition类型，其类图:
 
-![ScannedGenericBeanDefinition类图](images/ScannedGenericBeanDefinition.jpg)
+![ScannedGenericBeanDefinition类图](./images/ScannedGenericBeanDefinition.jpg)
 
 ### @Scope解析
 
@@ -1481,7 +1481,7 @@ public static void main(String[] args) {
 
 具体的实现类是PropertyOverrideBeanDefinitionParser，其类图如下:
 
-![PropertyOverrideBeanDefinitionParser类图](images/PropertyOverrideBeanDefinitionParser.jpg)
+![PropertyOverrideBeanDefinitionParser类图](./images/PropertyOverrideBeanDefinitionParser.jpg)
 
 ## 解析
 
@@ -1586,7 +1586,7 @@ public void setProperties(Properties properties) {
 
 保存的BeanDefinition的beanClass为PropertyOverrideConfigurer，其类图:
 
-![PropertyOverrideConfigurer类图](images/PropertyOverrideConfigurer.jpg)
+![PropertyOverrideConfigurer类图](./images/PropertyOverrideConfigurer.jpg)
 
 ## 运行
 
@@ -1723,7 +1723,7 @@ Spring会将java的System.getProperties也当做属性的来源，此配置用�
 
 这次是PropertySourcesPlaceholderConfigurer，其类图:
 
-![PropertySourcesPlaceholderConfigurer类图](images/PropertySourcesPlaceholderConfigurer.jpg)
+![PropertySourcesPlaceholderConfigurer类图](./images/PropertySourcesPlaceholderConfigurer.jpg)
 
 ## 运行
 
@@ -1817,7 +1817,7 @@ public class InstrumentationSavingAgent {
 
 此接口用于向ClassLoader添加ClassFileTransformer对象，其继承体系:
 
-![LoadTimeWeaver继承体系](images/LoadTimeWeaver.jpg)
+![LoadTimeWeaver继承体系](./images/LoadTimeWeaver.jpg)
 
 LoadTimeWeaverBeanDefinitionParser的父类初始化了一个DefaultContextLoadTimeWeaver类型的BeanDefinition放入容器，类型的决定位于LoadTimeWeaverBeanDefinitionParser.getBeanClassName:
 
@@ -1896,7 +1896,7 @@ protected boolean isAspectJWeavingEnabled(String value, ParserContext parserCont
 
 从源码中可以看出，Spring向容器放了一个这东西，名字叫org.springframework.context.config.internalAspectJWeavingEnabler。这东西用来向LoadTimeWeaver设置aspectj的ClassPreProcessorAgentAdapter对象。其类图:
 
-![AspectJWeavingEnabler类图](images/AspectJWeavingEnabler.jpg)
+![AspectJWeavingEnabler类图](./images/AspectJWeavingEnabler.jpg)
 
 ### SpringConfiguredBeanDefinitionParser
 
@@ -1928,7 +1928,7 @@ public BeanDefinition parse(Element element, ParserContext parserContext) {
 
 很明显，把org.springframework.beans.factory.aspectj.AnnotationBeanConfigurerAspect添加到容器里了，这其实是一个切面，其类图:
 
-![AnnotationBeanConfigurerAspect类图](images/AnnotationBeanConfigurerAspect.jpg)
+![AnnotationBeanConfigurerAspect类图](./images/AnnotationBeanConfigurerAspect.jpg)
 
 AnnotationBeanConfigurerAspect及其父类其实是由aspectj源文件(.aj)编译而来，所以在spring-aspectj的源码包中看到的是.aj文件而不是.java。
 
@@ -2058,7 +2058,7 @@ if (beanFactory.containsBean(LOAD_TIME_WEAVER_BEAN_NAME)) {
 
 很明显，关键在于LoadTimeWeaverAwareProcessor，类图:
 
-![LoadTimeWeaverAwareProcessor类图](images/LoadTimeWeaverAwareProcessor.jpg)
+![LoadTimeWeaverAwareProcessor类图](./images/LoadTimeWeaverAwareProcessor.jpg)
 
 postProcessBeforeInitialization方法:
 
@@ -2286,7 +2286,7 @@ public byte[] transform(ClassLoader loader, String className, Class<?> classBein
 
 delegate是一个org.aspectj.weaver.loadtime.ClassPreProcessorAgentAdapter对象。这是一个适配器模式，其类图:
 
-![ClassPreProcessorAgentAdapter类图](images/ClassPreProcessorAgentAdapter.jpg)
+![ClassPreProcessorAgentAdapter类图](./images/ClassPreProcessorAgentAdapter.jpg)
 
 根据Aspectj的doc，ClassPreProcessor用于将Aspectj 5对于jdk5依赖代码抽取出来以便可以支持jdk1.3/1.4.
 
@@ -2325,7 +2325,7 @@ aop.xml的解析便是在这里进行。解析的过程无非是xml的解析，�
 
 那么解析后的结果:
 
-![aop.xml解析结果](images/aop_xml_parse.png)
+![aop.xml解析结果](./images/aop_xml_parse.png)
 
 ###### 注册
 

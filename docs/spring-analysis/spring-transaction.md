@@ -74,7 +74,7 @@ BeanFactoryTransactionAttributeSourceAdvisor->TransactionInterceptor->Annotation
 
 与aop模块类似，入口位于configureAutoProxyCreator里注册的bean: InfrastructureAdvisorAutoProxyCreator，其类图:
 
-![InfrastructureAdvisorAutoProxyCreator类图](images/InfrastructureAdvisorAutoProxyCreator.jpg)
+![InfrastructureAdvisorAutoProxyCreator类图](./images/InfrastructureAdvisorAutoProxyCreator.jpg)
 
 此类的特殊之处从其名字上可以体现: **只考虑Spring内部使用的基础设施Advisor**。
 
@@ -136,11 +136,11 @@ protected List<Advisor> findEligibleAdvisors(Class<?> beanClass, String beanName
 
 对于spring事务来说，我们有唯一的Advisor: BeanFactoryTransactionAttributeSourceAdvisor,其类图:
 
-![BeanFactoryTransactionAttributeSourceAdvisor类图](images/BeanFactoryTransactionAttributeSourceAdvisor.jpg)
+![BeanFactoryTransactionAttributeSourceAdvisor类图](./images/BeanFactoryTransactionAttributeSourceAdvisor.jpg)
 
 可以看出，BeanFactoryTransactionAttributeSourceAdvisor其实是一个PointcutAdvisor，所以**是否可以匹配取决于其Pointcut**。此Advisor的pointcut是一个TransactionAttributeSourcePointcut对象，类图:
 
-![TransactionAttributeSourcePointcut类图](images/TransactionAttributeSourcePointcut.jpg)
+![TransactionAttributeSourcePointcut类图](./images/TransactionAttributeSourcePointcut.jpg)
 
 **Pointcut的核心在于其ClassFilter和MethodMatcher**。
 
@@ -380,7 +380,7 @@ protected PlatformTransactionManager determineTransactionManager(TransactionAttr
 
 对于我们使用的DataSourceTransactionManager，类图:
 
-![DataSourceTransactionManager](images/DataSourceTransactionManager.jpg)
+![DataSourceTransactionManager](./images/DataSourceTransactionManager.jpg)
 
 afterPropertiesSet方法只是对dataSource进行了检查。
 
@@ -388,7 +388,7 @@ afterPropertiesSet方法只是对dataSource进行了检查。
 
 DriverManagerDataSource类图:
 
-![DriverManagerDataSource类图](images/DriverManagerDataSource.jpg)
+![DriverManagerDataSource类图](./images/DriverManagerDataSource.jpg)
 
 其中CommonDataSource、Wrapper、DataSource均位于javax.sql包下。
 
@@ -666,13 +666,13 @@ protected SavepointManager getSavepointManager() {
 
  DataSourceTransactionObject的类图如下:
 
-![DataSourceTransactionObject类图](images/DataSourceTransactionObject.jpg)
+![DataSourceTransactionObject类图](./images/DataSourceTransactionObject.jpg)
 
 ###### Savepoint
 
 位于java.sql包下，对于Mysql来说，由Mysql驱动提供实现，类图:
 
-![Savepoint类图](images/Savepoint.jpg)
+![Savepoint类图](./images/Savepoint.jpg)
 
 下面来看一下Savepoint到底是如何被创建的。
 

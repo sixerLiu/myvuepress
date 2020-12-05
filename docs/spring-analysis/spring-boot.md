@@ -45,7 +45,7 @@ deduceWebEnvironment方法用于检测当前是否是web工程环境，检测的
 
 在简单的web应用场景下(没有数据库/mybatis)，共最终引入了下列的类:
 
-![ApplicationContextInitializer](images/ApplicationContextInitializer.png)
+![ApplicationContextInitializer](./images/ApplicationContextInitializer.png)
 
 来自于三个jar包:
 
@@ -57,23 +57,23 @@ deduceWebEnvironment方法用于检测当前是否是web工程环境，检测的
 
 这货是典型的观察者模式实现，类图:
 
-![ApplicationListener](images/ApplicationListener.PNG)
+![ApplicationListener](./images/ApplicationListener.PNG)
 
 在简单的web应用场景下，系统共初始化了这些监听器:
 
-![ApplicationListener](images/ApplicationListener_used.png)
+![ApplicationListener](./images/ApplicationListener_used.png)
 
 ## SpringApplicationRunListener
 
 就像它长得那样，就是用来监听SpringApplication的run方法的监听器。看看这货用到了哪些实现类:
 
-![SpringApplicationRunListener](images/SpringApplicationRunListener.png)
+![SpringApplicationRunListener](./images/SpringApplicationRunListener.png)
 
 # run
 
 从这一节开始，就进入了SpringApplication的run方法的势力范围。整个方法的流程总结如下图:
 
-![SpringApplication.run](images/spring_application_run.png)
+![SpringApplication.run](./images/spring_application_run.png)
 
 ## starting
 
@@ -159,7 +159,7 @@ private void onApplicationEnvironmentPreparedEvent(ApplicationEnvironmentPrepare
 
 显然核心的加载操作是通过EnvironmentPostProcessor接口实现的，此接口允许我们在context刷新之前自定义配置加载，并且Spring推荐此接口的实现类同时实现Ordered接口。类图:
 
-![EnvironmentPostProcessor](images/EnvironmentPostProcessor.png)
+![EnvironmentPostProcessor](./images/EnvironmentPostProcessor.png)
 
 加上ConfigFileApplicationListener自己，spring-boot默认共初始化了三个加载器，其它两个是SpringApplicationJsonEnvironmentPostProcessor和CloudFoundryVcapEnvironmentPostProcessor，下面按照其优先级顺序进行说明。
 

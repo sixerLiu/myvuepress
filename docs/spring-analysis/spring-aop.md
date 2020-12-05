@@ -78,7 +78,7 @@ pointcut的解析是一个生成一个BeanDefinition并将其id, expression等�
 
 AspectJExpressionPointcut类图:
 
-![AspectJExpressionPointcut类图](images/AspectJExpressionPointcut.jpg)
+![AspectJExpressionPointcut类图](./images/AspectJExpressionPointcut.jpg)
 
 ### aop:advisor
 
@@ -92,7 +92,7 @@ advisor概念是Spring独有的，来自于上古时代，应该是较早时候�
 
 其相关的包/类就在spring-aop下:
 
-![aopalliance包](images/aopalliance.png)
+![aopalliance包](./images/aopalliance.png)
 
 advice-ref是必须的属性，**并且这里的advice必须实现org.aopalliance.aop.Advice的子接口**。这些子接口指的什么呢，见Spring官方文档: [aop-api-advice-types](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/aop-api.html#aop-api-advice-types)。比如org.aopalliance.intercept.MethodInterceptor。
 
@@ -115,11 +115,11 @@ advice-ref是必须的属性，**并且这里的advice必须实现org.aopallianc
 
 解析的套路和楼上类似，只不过此处的beanClass是DefaultBeanFactoryPointcutAdvisor，其类图:
 
-![DefaultBeanFactoryPointcutAdvisor类图](images/DefaultBeanFactoryPointcutAdvisor.jpg)
+![DefaultBeanFactoryPointcutAdvisor类图](./images/DefaultBeanFactoryPointcutAdvisor.jpg)
 
 另外注意对于pointcut和pointcut-ref两者处理的区别，对于pointcut属性，Spring会同样创建一个AspectJExpressionPointcut类型的BeanDefinition，对于pointcut-ref会生成一个RuntimeBeanReference对象指向原pointcut的引用。此类的类图:
 
-![RuntimeBeanReference类图](images/RuntimeBeanReference.jpg)
+![RuntimeBeanReference类图](./images/RuntimeBeanReference.jpg)
 
 可以看出，这种aop的实现需要实现各种接口，所以不应该再使用此种方式进行aop，除了Spring内部的实现。
 
@@ -186,13 +186,13 @@ AspectComponentDefinition
 
 此标签最终被解析成为beanClass为DeclareParentsAdvisor的BeanDefinition，并注册到容器中。其类图:
 
-![DeclareParentsAdvisor类图](images/DeclareParentsAdvisor.jpg)
+![DeclareParentsAdvisor类图](./images/DeclareParentsAdvisor.jpg)
 
 #### 其它
 
 此处的其它指的是aop:before, aop:after等最核心的标签。其最终被解析为beanClass为AspectJPointcutAdvisor的BeanDefinition，类图:
 
-![AspectJPointcutAdvisor类图](images/AspectJPointcutAdvisor.jpg)
+![AspectJPointcutAdvisor类图](./images/AspectJPointcutAdvisor.jpg)
 
 正如上面结构图里所描述的，其构造参数为一个BeanDefintion，此对象的beanClass是不确定的，由aop:before/after中的before和after决定，代码:
 
@@ -219,7 +219,7 @@ private Class<?> getAdviceClass(Element adviceElement, ParserContext parserConte
 
 第一个便是beanClass为此类型的BeanDefinition。其内部有一个methodName属性，存储的便是标签的method属性的值。其类图:
 
-![MethodLocatingFactoryBean类图](images/MethodLocatingFactoryBean.jpg)
+![MethodLocatingFactoryBean类图](./images/MethodLocatingFactoryBean.jpg)
 
 这个东西是干什么用的呢?其实是用于在指定的advice(aop:aspect的ref属性)中得到Method对象。入口在setBeanFactory方法:
 
@@ -235,7 +235,7 @@ public void setBeanFactory(BeanFactory beanFactory) {
 
 其类图:
 
-![SimpleBeanFactoryAwareAspectInstanceFactory类图](images/SimpleBeanFactoryAwareAspectInstanceFactory.jpg)
+![SimpleBeanFactoryAwareAspectInstanceFactory类图](./images/SimpleBeanFactoryAwareAspectInstanceFactory.jpg)
 
 此类用于在BeanFactory中定位aspect bean，这个bean指的是谁?
 
@@ -260,7 +260,7 @@ public Object getAspectInstance() {
 
 关键在于AspectJAwareAdvisorAutoProxyCreator，此对象在ConfigBeanDefinitionParser的configureAutoProxyCreator方法中注册，其类图:
 
-![AspectJAwareAdvisorAutoProxyCreator类图](images/AspectJAwareAdvisorAutoProxyCreator.jpg)
+![AspectJAwareAdvisorAutoProxyCreator类图](./images/AspectJAwareAdvisorAutoProxyCreator.jpg)
 
 那么子类生成的入口在哪里呢?
 
@@ -385,7 +385,7 @@ protected boolean shouldSkip(Class<?> beanClass, String beanName) {
 
 ###### AOP逻辑
 
-![AOP逻辑图](images/aop_logic.jpg)
+![AOP逻辑图](./images/aop_logic.jpg)
 
 那么Spring又是如何找到适用于当前bean的Advisor的呢?
 
@@ -443,7 +443,7 @@ protected boolean isEligibleAdvisorBean(String beanName) {
 
 从源码中可以看出，对于自定义的TargetSource，Spring会立即执行代理子类的创建。Spring的代理其实是针对TargetSource的，其类图:
 
-![TargetSource类图](images/TargetSource.jpg)
+![TargetSource类图](./images/TargetSource.jpg)
 
 关于此接口在此不展开叙述。
 
@@ -739,7 +739,7 @@ Object retVal = invocation.proceed();
 
 其解析由ScopedProxyBeanDefinitionDecorator完成，类图:
 
-![ScopedProxyBeanDefinitionDecorator类图](images/ScopedProxyBeanDefinitionDecorator.jpg)
+![ScopedProxyBeanDefinitionDecorator类图](./images/ScopedProxyBeanDefinitionDecorator.jpg)
 
 ## 解析
 
@@ -808,7 +808,7 @@ public BeanDefinitionHolder decorate(Node node, BeanDefinitionHolder definition,
 
 新的BeanDefintion的beanClass为ScopedProxyFactoryBean，其类图:
 
-![ScopedProxyFactoryBean类图](images/ScopedProxyFactoryBean.jpg)
+![ScopedProxyFactoryBean类图](./images/ScopedProxyFactoryBean.jpg)
 
 ## 代理生成
 
@@ -846,7 +846,7 @@ public void setBeanFactory(BeanFactory beanFactory) {
 
 核心的拦截逻辑是通过DelegatingIntroductionInterceptor来完成的，其类图:
 
-![DelegatingIntroductionInterceptor类图](images/DelegatingIntroductionInterceptor.jpg)
+![DelegatingIntroductionInterceptor类图](./images/DelegatingIntroductionInterceptor.jpg)
 
 AdvisedSupport.addAdvice方法将其转化为Advisor:
 
@@ -997,7 +997,7 @@ scopes是BeanFactory内部的一个 LinkedHashMap<String, Scope>类型的对象�
 
 其简略类图:
 
-![Callback类图](images/Callback.jpg)
+![Callback类图](./images/Callback.jpg)
 
 #### CallbackFilter
 
@@ -1005,7 +1005,7 @@ scopes是BeanFactory内部的一个 LinkedHashMap<String, Scope>类型的对象�
 
 jdk并不支持这么搞，只支持设置一个InvocationHandler处理(拦截)所有的方法。其类图:
 
-![CallbackFilter类图](images/CallbackFilter.jpg)
+![CallbackFilter类图](./images/CallbackFilter.jpg)
 
 Cglib的Enhancer可以指定一个Callback数组，而accept方法的返回值是一个int值，其实就是Callback数组的下标，这样便达到了指定回调逻辑的目的。
 
@@ -1164,7 +1164,7 @@ Spring对于AspectJ风格AOP的支持停留在外表(注解)上面，内部的�
 
 这里以Cglib为例对第二点进行说明，cglib的相关核心组件可以参考前面CallbackFilter & Callback部分。对于配置了一个切面的典型场景，Spring内部的执行流程可总结如下图:
 
-![Cglib调用流程](images/cglib_invocation.png)
+![Cglib调用流程](./images/cglib_invocation.png)
 
 核心便是对目标方法的调用上，这里由CglibMethodInvocation的invokeJoinpoint实现:
 
