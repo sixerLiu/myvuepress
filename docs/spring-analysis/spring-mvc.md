@@ -865,15 +865,15 @@ public String[] getParameterNames(Method method) {
 
 LocalVariableTableParameterNameDiscoverer利用了ASM直接访问class文件中的本地变量表来得到变量名，下面是使用`javap -verbose`命令得到的本地变量表示例:
 
-![本地变量表](./images/local_variable_tables.PNG)
+![本地变量表](./images/local_variable_tables.png)
 
 但是默认情况下javac compiler是不生成本地变量表这种调试信息的，需要加`-g`参数才可以，那为什么在我们的测试Controller中却可以获得呢，玄机就在于idea的下列设置:
 
-![idea编译设置](./images/idea_debug_info.PNG)
+![idea编译设置](./images/idea_debug_info.png)
 
 取消这项设置的勾选再次运行程序便出问题了:
 
-![调试信息错误](./images/debug_info_error.PNG)
+![调试信息错误](./images/debug_info_error.png)
 
 #### Model
 
@@ -1165,7 +1165,7 @@ public boolean canWrite(Class<?> clazz, MediaType mediaType) {
 
 Spring MVC中参数到各种类型的转换由HandlerMethodArgumentResolver接口完成，而Controller返回值到真正的响应的转换由HandlerMethodReturnValueHandler接口完成。两者分别负责Spring MVC中数据的输入与输出，可用下图表示:
 
-![Spring MVC输入输出转换](./images/mvc_input_output.PNG)
+![Spring MVC输入输出转换](./images/mvc_input_output.png)
 
 HandlerMethodArgumentResolver接口及其主要实现类如下图:
 
