@@ -11,17 +11,30 @@ module.exports = {
     docsBranch: 'main',
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'LaLaLa', link: '/lalala/' },
+      { text: 'SpringAnalysis', link: '/spring-analysis/' },
       { text: 'External', link: 'https://www.vuepress.cn' },
     ],
-    sidebar: [
-      '/lalala/',
-      '/test',
-    ],
+    sidebar: {
+      '/spring-analysis/': getSpringAnalysis()
+    },
     smoothScroll: true
   },
   plugins: [
     ['@vuepress/back-to-top', true],
     '@vuepress/nprogress'
+  ]
+}
+
+function getSpringAnalysis () {
+  return [
+    '',
+    'Spring',
+    ['spring-aop', 'spring-aop'],
+    ['spring-boot', 'spring-boot'],
+    ['spring-context', 'spring-context'],
+    ['spring-mvc', 'spring-mvc'],
+    ['spring-task', 'spring-task'],
+    ['spring-transaction', 'spring-transaction'],
+    ['guava-cache', 'guava-cache']
   ]
 }
