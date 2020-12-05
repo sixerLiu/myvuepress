@@ -28,7 +28,7 @@ module.exports = {
 function getSpringAnalysis () {
   return [
     '',
-    'Spring',
+    ['Spring', 'spring-core'],
     ['spring-aop', 'spring-aop'],
     ['spring-boot', 'spring-boot'],
     ['spring-context', 'spring-context'],
