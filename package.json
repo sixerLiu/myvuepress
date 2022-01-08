@@ -4,9 +4,9 @@
   "author": "sixer",
   "license": "MIT",
   "devDependencies": {
-    "@vuepress/plugin-back-to-top": "^1.7.1",
-    "@vuepress/plugin-nprogress": "^1.7.1",
-    "vuepress": "^1.7.1"
+    "@vuepress/plugin-back-to-top": "^1.9.5",
+    "@vuepress/plugin-nprogress": "^1.9.5",
+    "vuepress": "^1.9.5"
   },
   "scripts": {
     "docs:dev": "vuepress dev docs",
